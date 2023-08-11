@@ -2,7 +2,15 @@ import React from 'react'
 
 const Tickets = () => {
   return (
-    <main>Tickets</main>
+    <main>
+        <nav>
+            <div>
+                <h2>Tickets</h2>
+                <p><small>Currently Open tickets</small></p>
+            </div>
+        </nav>
+
+    </main>
   )
 }
 
