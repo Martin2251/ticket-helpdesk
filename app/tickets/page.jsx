@@ -1,4 +1,5 @@
 import React from 'react'
+import TicketList from './TicketList'
 
 const Tickets = () => {
   return (
@@ -9,6 +10,7 @@ const Tickets = () => {
                 <p><small>Currently Open tickets</small></p>
             </div>
         </nav>
+        <TicketList  />
 
     </main>
   )
