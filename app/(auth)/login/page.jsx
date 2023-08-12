@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import AuthForm from '../AuthForm'
 import { Passero_One } from 'next/font/google'
