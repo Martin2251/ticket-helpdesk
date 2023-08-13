@@ -1,6 +1,5 @@
 // fetching data from client component
 
-
 import { NextResponse } from "next/server"
 
 export const dynamic = 'force-dynamic'
