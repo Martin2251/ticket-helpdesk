@@ -1,42 +1,43 @@
 "use client"
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 
-import {useState} from "react"
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import React from 'react'
-import AuthForm from '../AuthForm'
+// components
+import AuthForm from "../AuthForm"
 
 export default function Login() {
-  const [error,setError] = useState
   const router = useRouter()
+  const [error, setError] = useState('')
 
+  const handleSubmit = async (e, email, password) => {
+    e.preventDefault()
+    setError('')
 
-const handleSubmit = async (e,email,password) => {
-  e.preventDefault ()
-  setError('')
+    const supabase = createClientComponentClient()
 
-  const supabase = createClientComponentClient()
-  const {error} = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  })
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    })
+    if (error) {
+      setError(error.message)
+    }
+    if (!error) {
+      router.push('/')
+    } 
 
-  if (error){
-    setError(error.message)
   }
+[]
+  return (
+    <main>
+      <h2 className="text-center">Login</h2>
 
-  if(!error){
-    router.push('/')
-  }
-}
-return (
-<main>
-    <h2 className="text-center">Log In</h2>
-<AuthForm handleSubmit={handleSubmit} />
-{ error && (
-  <div className="error">{error}
-  </div>
-)}
+      <AuthForm handleSubmit={handleSubmit} />
 
-</main>
+      {error && (
+        <div className="error">{error}</div>
+      )}
+    </main>
   )
 }
