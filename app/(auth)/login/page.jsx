@@ -1,18 +1,41 @@
 "use client"
+
+import {useState} from "react"
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import React from 'react'
 import AuthForm from '../AuthForm'
-import { Passero_One } from 'next/font/google'
+
+export default function Login() {
+  const [error,setError] = useState
+  const router = useRouter()
+
 
 const handleSubmit = async (e,email,password) => {
-  e.preventDefaul ()
+  e.preventDefault ()
+  setError('')
 
-  console.log('user login',email,password)
+  const supabase = createClientComponentClient()
+  const {error} = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  })
+
+  if (error){
+    setError(error.message)
+  }
+
+  if(!error){
+    router.push('/')
+  }
 }
-export default function Login() {
-  return (
+return (
 <main>
     <h2 className="text-center">Log In</h2>
 <AuthForm handleSubmit={handleSubmit} />
+{ error && (
+  <div className="error">{error}
+  </div>
+)}
 
 </main>
   )
